@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 //simple test
@@ -16,21 +17,31 @@ namespace SimpleTest
         public static string CalculateTotal(string someInput)
         {
             var log = new ConsoleLogger();
-            if (someInput == null)
+
+            if (string.IsNullOrWhiteSpace(someInput))
             {
-                throw new DataMisalignedException("data not correct");
+                throw new ArgumentNullException("data not correct");
             }
             
             log.Log("start CalculateTotal");
 
             //algorithm
-            if (someInput == "Go baby, go")
-            {                
-                return "baby Go go";
-            }
+            var pattern = new Regex("[.,;']");
+            var filteredWords = pattern.Replace(someInput, "");
+
+            var words = filteredWords.Split(' ');
+
+            var orderedWords = words.OrderBy(x => x);
+
+            var upperToLowerCaseSort = orderedWords
+                .OrderBy(x => x, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(x => x, StringComparer.Ordinal);
+
+            var orderedWordString = string.Join(" ", upperToLowerCaseSort);
 
             log.Log("end CalculateTotal");
-            return someInput;            
+
+            return orderedWordString;
         }
 
         internal class ConsoleLogger : ILogger
