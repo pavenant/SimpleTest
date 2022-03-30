@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 //simple test
 
@@ -12,18 +8,23 @@ using System.Threading.Tasks;
 
 namespace SimpleTest
 {
-    public static partial class MyTest
+    public class ThisIsATest
     {
-        public static string CalculateTotal(string someInput)
-        {
-            var log = new ConsoleLogger();
+        private readonly ILogger<ThisIsATest> _logger;
 
+        public ThisIsATest(ILogger<ThisIsATest> logger) 
+        { 
+            _logger = logger; 
+        }
+
+        public string CalculateTotal(string someInput)
+        {
             if (string.IsNullOrWhiteSpace(someInput))
             {
-                throw new ArgumentNullException("data not correct");
+                throw new ArgumentNullException(nameof(someInput), "data not correct");
             }
-            
-            log.Log("start CalculateTotal");
+  
+            _logger.LogInformation("start CalculateTotal");
 
             //algorithm
             var pattern = new Regex("[.,;']");
@@ -39,18 +40,11 @@ namespace SimpleTest
 
             var orderedWordString = string.Join(" ", upperToLowerCaseSort);
 
-            log.Log("end CalculateTotal");
+            _logger.LogInformation("end CalculateTotal");
 
             return orderedWordString;
         }
 
-        internal class ConsoleLogger : ILogger
-        {
-            public void Log(string stuff)
-            {
-                Console.WriteLine(stuff);
-            }
-        }
 
     }
 }

@@ -1,65 +1,102 @@
 
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Extensions.Logging;
+using Moq;
+using NUnit.Framework;
+using SimpleTest;
 using System;
 
 namespace IntegrationTest
 {
-    [TestClass]
+    [TestFixture]
     public class UnitTest1
     {
-        private const string ExceptionMessage = "data not correct";
+        private ThisIsATest _sut;
 
-        [TestMethod]
+        private Mock<ILogger<ThisIsATest>> _loggerMock;
+
+        private const string ExceptionMessage = "data not correct (Parameter 'someInput')";
+        private const string ParameterName = "someInput";
+
+        [SetUp]
+        public void SetUp()
+        {
+            _loggerMock = new Mock<ILogger<ThisIsATest>>();
+
+            _sut = new ThisIsATest(_loggerMock.Object);
+        }
+
+        [Test]
         public void CalculateTotal_SortsByWord()
         {        
-            Assert.AreEqual("Boom Zoom", SimpleTest.MyTest.CalculateTotal("Zoom Boom"));
+            Assert.AreEqual("Boom Zoom", _sut.CalculateTotal("Zoom Boom"));
         }
 
-        [TestMethod]
+        [Test]
         public void CalculateTotal_SortsByCase()
         {        
-            Assert.AreEqual("Boom boom", SimpleTest.MyTest.CalculateTotal("boom Boom"));
+            Assert.AreEqual("Boom boom", _sut.CalculateTotal("boom Boom"));
         }
 
-        [TestMethod]
+        [Test]
         public void CalculateTotal_RemovesInvalidCharacters()
         {        
-            Assert.AreEqual("b b", SimpleTest.MyTest.CalculateTotal("b.,;' b"));
+            Assert.AreEqual("b b", _sut.CalculateTotal("b.,;' b"));
         }
 
-        [TestMethod]
+        [Test]
         public void CalculateTotal_ByWordCaseAndRemovesInvalidCharacters_SimpleTest1()
         {        
-            Assert.AreEqual("baby Go go", SimpleTest.MyTest.CalculateTotal("Go baby, go"));
+            Assert.AreEqual("baby Go go", _sut.CalculateTotal("Go baby, go"));
         }
 
-        [TestMethod]
+        [Test]
         public void CalculateTotal_ByWordCaseAndRemovesInvalidCharacters_SimpleTest2()
         {
-            Assert.AreEqual("ABC aBc abc CBA CBA cba", SimpleTest.MyTest.CalculateTotal("CBA, abc aBc ABC cba CBA."));
+            Assert.AreEqual("ABC aBc abc CBA CBA cba", _sut.CalculateTotal("CBA, abc aBc ABC cba CBA."));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException), ExceptionMessage)]
+        [Test]
         public void CalculateTotal_WhenInputIsNull_ThenRaiseNullException()
         {
-            SimpleTest.MyTest.CalculateTotal(null);
+            var result = Assert.Throws<ArgumentNullException>(() => _sut.CalculateTotal(null));
+
+            Assert.AreEqual(result.ParamName, ParameterName);
+            Assert.AreEqual(result.Message, ExceptionMessage);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException), ExceptionMessage)]
+        [Test]
         public void CalculateTotal_WhenInputIsEmpty_ThenRaiseNullException()
         {
-            SimpleTest.MyTest.CalculateTotal("");
+            var result = Assert.Throws<ArgumentNullException>(() => _sut.CalculateTotal(""));
+
+            Assert.AreEqual(result.ParamName, ParameterName);
+            Assert.AreEqual(result.Message, ExceptionMessage);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException), ExceptionMessage)]
+        [Test]
         public void CalculateTotal_WhenInputIsSpace_ThenRaiseNullException()
         {
-            SimpleTest.MyTest.CalculateTotal(" ");
+            var result = Assert.Throws<ArgumentNullException>(() => _sut.CalculateTotal(" "));
+
+            Assert.AreEqual(result.ParamName, ParameterName);
+            Assert.AreEqual(result.Message, ExceptionMessage);
         }
 
+        [Test]
+        public void CalculateTotal_LogsStart()
+        {
+            _sut.CalculateTotal("A");
+
+            _loggerMock.VerifyInfoWasCalled("start CalculateTotal");
+        }
+
+        [Test]
+        public void CalculateTotal_LogsEndt()
+        {
+            _sut.CalculateTotal("A");
+
+            _loggerMock.VerifyInfoWasCalled("end CalculateTotal");
+        }
     }
 }
