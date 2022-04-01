@@ -1,15 +1,7 @@
-//simple test
-
-//Test 
-
 namespace SimpleTest
 {
-    public static partial class MyTest
+    public interface ILogger
     {
-        private interface ILogger
-        {
-            void Log(string stuff);
-        }
-
+        void Log(string logMessage);
     }
 }

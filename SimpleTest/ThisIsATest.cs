@@ -1,45 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//simple test
-
-//Test 
-
+﻿using System.Text.RegularExpressions;
 
 namespace SimpleTest
 {
-    public static partial class MyTest
+    public static class MyTest
     {
-        public static string CalculateTotal(string someInput)
+        public static string SortParagraph(string someInput,ILogger logger)
         {
+            //clean and prep list input before validate
+            someInput = Regex.Replace(someInput, "[,.;]", " "); //catering for paragraphs containing "abd,adv abd)
+            var stringList = someInput.Split(' ').ToList();
+            stringList = stringList.Where(s => !string.IsNullOrEmpty(s)).ToList(); //removing blank list items due to double spaces
+
+            //validate
             var log = new ConsoleLogger();
-            if (someInput == null)
+            if (String.IsNullOrEmpty(someInput))
             {
-                throw new DataMisalignedException("data not correct");
+                throw new DataMisalignedException("Not Data to sort");
             }
             
-            log.Log("start CalculateTotal");
+            log.Log("Start SortParagraph");
 
             //algorithm
-            if (someInput == "Go baby, go")
-            {                
-                return "baby Go go";
-            }
+            var sortedList = stringList.OrderBy(s => s, StringComparer.OrdinalIgnoreCase).ThenBy(s => s, StringComparer.Ordinal);
 
-            log.Log("end CalculateTotal");
-            return someInput;            
+            log.Log("End SortParagraph");
+            return String.Join(" ", sortedList);
         }
-
-        internal class ConsoleLogger : ILogger
-        {
-            public void Log(string stuff)
-            {
-                Console.WriteLine(stuff);
-            }
-        }
-
     }
 }
