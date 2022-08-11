@@ -9,6 +9,12 @@ namespace Common.Interfaces
         /// Simple member to log string data
         /// </summary>
         /// <param name="data">Data to be logged</param>
-        void Log(string data);
+        void LogMessage(string data);
+
+        /// <summary>
+        /// Member to log exceptions
+        /// </summary>
+        /// <param name="exception"></param>
+        void LogException(Exception exception);
     }
 }
