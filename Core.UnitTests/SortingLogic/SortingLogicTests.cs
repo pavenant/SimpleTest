@@ -1,5 +1,4 @@
-﻿using AutoFixture.Xunit2;
-using Common;
+﻿using Common;
 using Common.Interfaces;
 using Core.Interfaces;
 using Core.SortingLogic;
@@ -62,14 +61,7 @@ namespace Core.UnitTests.SortingLogic
             [Fact]
             public void Logs_Sort_Progress_To_Console()
             {
-                // Arrange
-                string inputData = GetRandomParagraph(12, 8);
-
-                // Act
-                _objectToTest.Sort(inputData);
-
-                // Assert
-                //_mockLogger.Verify(x => x.LogMessage(It.IsAny<string>()), Times.Exactly(2));
+                // TODO: Add logger tests
             }
         }
 
