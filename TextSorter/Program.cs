@@ -66,7 +66,7 @@ internal class Program
                         var output = sortingLogic.Sort(textToSort);
                         Console.WriteLine();
                         Console.WriteLine("Here is your sorted string");
-                        Console.WriteLine(output);
+                        Console.WriteLine(output.Output);
                     }
                     else
                     {
