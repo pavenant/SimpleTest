@@ -1,4 +1,5 @@
 ﻿using Common.Interfaces;
+using Common.Logging;
 using Core.Interfaces;
 
 namespace Core.SortingLogic
@@ -9,6 +10,12 @@ namespace Core.SortingLogic
     public class TextABCSort : IStringSorter
     {
         private readonly ILogger _logger;
+
+        public TextABCSort()
+        {
+            _logger = new ConsoleLogger();
+        }
+
         public TextABCSort(ILogger logger)
         {
             _logger = logger;
@@ -21,7 +28,7 @@ namespace Core.SortingLogic
         /// <param name="stringInput"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public string SortString(string stringInput)
+        public string Sort(string stringInput)
         {
             if (stringInput == null)
             {
