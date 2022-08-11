@@ -147,6 +147,19 @@ namespace Core.UnitTests.SortingLogic
                 actual.Should().Be(expected);
                 actual.Should().NotContainAny(Constants.CLEANUP_CHARACTERS);
             }
+
+            [Fact]
+            public void Does_Not_Remove_Duplicate_Words()
+            {
+                // Arrange
+                var expected = "duplicate duplicate duplicate";
+
+                // Act
+                var actual = _objectToTest.Sort(expected);
+
+                // Assert
+                actual.Should().Be(expected);
+            }
         }
     }
 }
