@@ -17,7 +17,7 @@ namespace Core.SortingFactory
                     switch (sortingSubType)
                     {
                         case SortingSubType.TextABCSort:
-                            return (ISortingLogic<TInput, TOutput>)new TextABCSort();
+                            return (ISortingLogic<TInput, TOutput>) new TextABCSort();
 
                         case SortingSubType.NumericASCSort:
                         default:

@@ -14,12 +14,12 @@ namespace Core.UnitTests.SortingLogic
     public class SortingLogicTests
     {
         private readonly TextABCSort _objectToTest;
-        private readonly Mock<ICustomLogger> _mockLogger;
+        private readonly Mock<ILogger> _mockLogger;
         private readonly Mock<IStringSorter> _mockStringSorter;
         
         public SortingLogicTests()
         {
-            _mockLogger = new Mock<ICustomLogger>();
+            _mockLogger = new Mock<ILogger>();
             _mockStringSorter = new Mock<IStringSorter>();
             _objectToTest = new TextABCSort();
         }
@@ -57,11 +57,59 @@ namespace Core.UnitTests.SortingLogic
             return stringBuilder.ToString().TrimEnd();
         }
 
+        public class LoggingTests : SortingLogicTests
+        {
+            [Fact]
+            public void Logs_Sort_Progress_To_Console()
+            {
+                // Arrange
+                string inputData = GetRandomParagraph(12, 8);
+
+                // Act
+                _objectToTest.Sort(inputData);
+
+                // Assert
+                //_mockLogger.Verify(x => x.LogMessage(It.IsAny<string>()), Times.Exactly(2));
+            }
+        }
+
         public class ErrorHandlingTests : SortingLogicTests
         {
             [Theory]
             [InlineData(null)]
             public void Throws_ArgumentNullException_If_Null_Provided(string inputData)
+            {
+                // Arrange
+
+                // Act
+                Func<object> action = () => _objectToTest.Sort(inputData);
+
+                // Assert
+                using (new AssertionScope())
+                {
+                    action.Should().Throw<ArgumentNullException>();
+                }
+            }
+
+            [Theory]
+            [InlineData(" ")]
+            public void Throws_ArgumentNullException_If_Whitespace_Provided(string inputData)
+            {
+                // Arrange
+
+                // Act
+                Func<object> action = () => _objectToTest.Sort(inputData);
+
+                // Assert
+                using (new AssertionScope())
+                {
+                    action.Should().Throw<ArgumentNullException>();
+                }
+            }
+
+            [Theory]
+            [InlineData("")]
+            public void Throws_ArgumentNullException_If_ZeroLength_Provided(string inputData)
             {
                 // Arrange
 

@@ -1,6 +1,7 @@
 ﻿using Common;
 using Common.Interfaces;
 using Common.Logging;
+using Common.Models;
 using Core.Interfaces;
 
 namespace Core.SortingLogic
@@ -31,12 +32,13 @@ namespace Core.SortingLogic
         /// Note point 1 takes preference. (aBba Abba) becomes (Abba aBba)
         /// remove all (.,;') chars. (aBba, Abba) becomes (Abba aBba)
         /// </summary>
-        /// <param name="stringInput"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <param name="stringInput">The string to sort</param>
+        /// <returns>The sorted string</returns>
+        /// <exception cref="ArgumentNullException">String input is required</exception>
         public string Sort(string stringInput)
         {
-            if (stringInput == null)
+            // ensure input is valid, exception handling should be done by calling code
+            if (stringInput == null || string.IsNullOrWhiteSpace(stringInput) || stringInput.Length <= 0)
             {
                 throw new ArgumentNullException(nameof(stringInput), "String input is required");
             }
@@ -50,20 +52,31 @@ namespace Core.SortingLogic
                 stringInput = stringInput.Replace(item, string.Empty);
             }
 
-            // split out the words
+            // split out the words into a list so that we can sort
             var words = stringInput.Split(' ').ToList();
+
             // words should be reordered Alphabetically - (Zerbra Abba) becomes (Abba Zebra)
             words.Sort((x, y) => string.Compare(x, y));
 
             // words should THEN be ordered from upper case to lower case.
-            var sortedWords = 
+            var sortedWords =
+                // use the OrdinalIgnoreCase comparer, which will group the characters up.
                 words.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)
+                // sort those groups ordinally to get the capitals to come first
                 .ThenBy(x => x, StringComparer.Ordinal);
 
             // Do not remove duplicate words
-            
+            // nothing to do here
+
             _logger.LogToConsole("end ABC Sort");
+
+            // join list back to a paragraph
             return string.Join(" ", sortedWords);            
+        }
+
+        public StringOutput Sort(StringInput someInput)
+        {
+            return new StringOutput { Output = this.Sort(someInput.Input) };
         }
     }
 }
