@@ -9,14 +9,14 @@ namespace Core.SortingLogic
     /// </summary>
     public class TextABCSort : IStringSorter
     {
-        private readonly ILogger _logger;
+        private readonly ICustomLogger _logger;
 
         public TextABCSort()
         {
-            _logger = new ConsoleLogger();
+            _logger = new CustomLogger();
         }
 
-        public TextABCSort(ILogger logger)
+        public TextABCSort(ICustomLogger logger)
         {
             _logger = logger;
         }
@@ -35,7 +35,7 @@ namespace Core.SortingLogic
                 throw new ArgumentNullException(nameof(stringInput), "String input is required");
             }
             
-            _logger.Log("start ABC Sort");
+            _logger.LogToConsole("start ABC Sort");
 
             //TODO: sorting algorithm
             // words should be reordered Alphabetically - (Zerbra Abba) becomes (Abba Zebra)
@@ -43,7 +43,7 @@ namespace Core.SortingLogic
             // remove all (.,;') chars. (aBba, Abba) becomes (Abba aBba)
             // Do not remove duplicate words
 
-            _logger.Log("end ABC Sort");
+            _logger.LogToConsole("end ABC Sort");
             return stringInput;            
         }
     }
