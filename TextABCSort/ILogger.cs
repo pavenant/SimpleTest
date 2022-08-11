@@ -2,7 +2,7 @@
 
 //Test 
 
-namespace SimpleTest
+namespace TextABCSort
 {
     public static partial class MyTest
     {

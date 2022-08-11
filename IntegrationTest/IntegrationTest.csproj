@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SimpleTest\SimpleTest.csproj" />
+    <ProjectReference Include="..\TextABCSort\TextABCSort.csproj" />
   </ItemGroup>
 
 </Project>
