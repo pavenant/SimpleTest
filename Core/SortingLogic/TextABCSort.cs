@@ -1,18 +1,24 @@
-﻿using Common.Logging;
+﻿using Common.Interfaces;
+using Core.Interfaces;
 
-namespace TextABCSort
+namespace Core.SortingLogic
 {
     public class TextABCSort : IStringSorter
     {
-        public string SortText(string someInput)
+        private readonly ILogger _logger;
+        public TextABCSort(ILogger logger)
         {
-            var log = new ConsoleLogger();
+            _logger = logger;
+        }
+
+        public string SortString(string someInput)
+        {
             if (someInput == null)
             {
                 throw new DataMisalignedException("data not correct");
             }
             
-            log.Log("start CalculateTotal");
+            _logger.Log("start ABC Sort");
 
             //algorithm
             if (someInput == "Go baby, go")
@@ -20,9 +26,8 @@ namespace TextABCSort
                 return "baby Go go";
             }
 
-            log.Log("end CalculateTotal");
+            _logger.Log("end ABC Sort");
             return someInput;            
         }
-
     }
 }

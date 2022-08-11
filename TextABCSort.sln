@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextSorter", "TextSorter\TextSorter.csproj", "{A665B209-D55E-4426-A152-E5F229914474}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{F67F6816-57A3-444B-9928-796AC5564C9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A665B209-D55E-4426-A152-E5F229914474}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A665B209-D55E-4426-A152-E5F229914474}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A665B209-D55E-4426-A152-E5F229914474}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F67F6816-57A3-444B-9928-796AC5564C9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F67F6816-57A3-444B-9928-796AC5564C9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F67F6816-57A3-444B-9928-796AC5564C9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F67F6816-57A3-444B-9928-796AC5564C9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
