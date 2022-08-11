@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//simple test
-
-//Test 
-
+﻿using Common.Logging;
 
 namespace TextABCSort
 {
@@ -31,14 +22,6 @@ namespace TextABCSort
 
             log.Log("end CalculateTotal");
             return someInput;            
-        }
-
-        internal class ConsoleLogger : ILogger
-        {
-            public void Log(string stuff)
-            {
-                Console.WriteLine(stuff);
-            }
         }
 
     }
