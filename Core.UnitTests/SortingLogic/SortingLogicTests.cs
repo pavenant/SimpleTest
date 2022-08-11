@@ -58,11 +58,7 @@ namespace Core.UnitTests.SortingLogic
 
         public class LoggingTests : SortingLogicTests
         {
-            [Fact]
-            public void Logs_Sort_Progress_To_Console()
-            {
-                // TODO: Add logger tests
-            }
+            // TODO: Add logger tests
         }
 
         public class ErrorHandlingTests : SortingLogicTests
@@ -113,6 +109,23 @@ namespace Core.UnitTests.SortingLogic
                 {
                     action.Should().Throw<ArgumentNullException>();
                 }
+            }
+
+            [Fact]
+            public void Should_Not_Throw_Exception_For_Valid_Input()
+            {
+                // Arrange
+                string inputData = GetRandomParagraph(12, 8);
+
+                // Act
+                Func<object> action = () => _objectToTest.Sort(inputData);
+
+                // Assert
+                using (new AssertionScope())
+                {
+                    action.Should().NotThrow<Exception>();
+                }
+
             }
         }
 

@@ -74,6 +74,11 @@ namespace Core.SortingLogic
             return string.Join(" ", sortedWords);            
         }
 
+        /// <summary>
+        /// Interface overload for factory based approach
+        /// </summary>
+        /// <param name="someInput"></param>
+        /// <returns></returns>
         public StringOutput Sort(StringInput someInput)
         {
             return new StringOutput { Output = this.Sort(someInput.Input) };

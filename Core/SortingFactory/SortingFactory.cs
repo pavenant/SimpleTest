@@ -5,8 +5,20 @@ using Core.SortingLogic;
 
 namespace Core.SortingFactory
 {
+    /// <summary>
+    /// Sorting factory
+    /// </summary>
     public class SortingFactory : ISortingFactory
     {
+        /// <summary>
+        /// Spawn logic implementation based on sorting type, and sub type
+        /// </summary>
+        /// <typeparam name="TInput">Input model for the sort</typeparam>
+        /// <typeparam name="TOutput">Output model for the sort</typeparam>
+        /// <param name="sortingType">Sorting Type</param>
+        /// <param name="sortingSubType">Sorting sub type</param>
+        /// <returns>Sorting logic instance</returns>
+        /// <exception cref="NotImplementedException">Not all sorts are completed</exception>
         public ISortingLogic<TInput, TOutput> CreateSortingLogic<TInput, TOutput>(SortingType sortingType, SortingSubType sortingSubType)
             where TInput : BaseInput
             where TOutput : BaseOutput

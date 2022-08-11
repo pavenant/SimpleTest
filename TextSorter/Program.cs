@@ -49,8 +49,9 @@ internal class Program
                 Console.WriteLine("Please enter your input to sort");
                 var textToSort = new StringInput { Input = Console.ReadLine() };
                 Console.WriteLine();
-               // this is a little messy, but demonstrates use of factory pattern
-               var sortingFactory = serviceProvider.GetService<ISortingFactory>();
+                
+                // this is a little messy, but demonstrates use of factory pattern
+                var sortingFactory = serviceProvider.GetService<ISortingFactory>();
                 ISortingLogic<StringInput, StringOutput>? sortingLogic 
                     = sortingFactory.CreateSortingLogic<StringInput, StringOutput>(sortingType, sortingSubType);
 

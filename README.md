@@ -16,3 +16,14 @@
 * insure you are happy with the project structure
 * take into account we may want to swap console logger with event logger in future
 * although this is a simple test, please complete the code as you would for a production release
+
+## Running the application
+I have put together a light weight console app to run the sort, this can be found in 
+TextABCSort\TextSorter\Program.cs
+
+## Tests
+The tests are located in TextABCSort\Core.UnitTests\SortingLogic\SortingLogicTests.cs
+The logger tests are a future TODO
+
+## Architecture
+I've implemented a factory pattern for the sorting logic, and an adaptor pattern for the logging. 
