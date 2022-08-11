@@ -46,19 +46,33 @@ internal class Program
                         break;
                 }
 
-                Console.WriteLine("Please enter your input to sort");
-                var textToSort = new StringInput { Input = Console.ReadLine() };
-                Console.WriteLine();
-                
-                // this is a little messy, but demonstrates use of factory pattern
-                var sortingFactory = serviceProvider.GetService<ISortingFactory>();
-                ISortingLogic<StringInput, StringOutput>? sortingLogic 
-                    = sortingFactory.CreateSortingLogic<StringInput, StringOutput>(sortingType, sortingSubType);
+                if (value > 1)
+                {
+                    Console.WriteLine("Not yet implemented");
+                }
+                else
+                {
+                    if (value > 0)
+                    {
+                        Console.WriteLine("Please enter your input to sort");
+                        var textToSort = new StringInput { Input = Console.ReadLine() };
+                        Console.WriteLine();
 
-                var output = sortingLogic.Sort(textToSort);
-                Console.WriteLine();
-                Console.WriteLine("Here is your sorted string");
-                Console.WriteLine(output);
+                        // this is a little messy, but demonstrates use of factory pattern
+                        var sortingFactory = serviceProvider.GetService<ISortingFactory>();
+                        ISortingLogic<StringInput, StringOutput>? sortingLogic
+                            = sortingFactory.CreateSortingLogic<StringInput, StringOutput>(sortingType, sortingSubType);
+
+                        var output = sortingLogic.Sort(textToSort);
+                        Console.WriteLine();
+                        Console.WriteLine("Here is your sorted string");
+                        Console.WriteLine(output);
+                    }
+                    else
+                    {
+                        Console.WriteLine("You did not select a sort.");
+                    }
+                }
             }
         } 
         // example of handling certain exception types differently
