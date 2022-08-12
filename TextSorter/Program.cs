@@ -36,7 +36,7 @@ internal class Program
             if (!string.IsNullOrWhiteSpace(input)) { 
                 SortingType sortingType = default;
                 SortingSubType sortingSubType = default;
-                int.TryParse(input, out int value);
+                _ = int.TryParse(input, out int value);
 
                 switch (value)
                 {
